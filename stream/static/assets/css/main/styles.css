@@ -1,0 +1,94 @@
+.content {
+}
+.logoleftbar{
+  width: 60px;
+}
+.logoleftbar #logoleftbar{
+  animation: rotate 0.6s normal linear infinite;
+  width: 30px;
+  height: 30px;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.avatar {
+  width: 70px;
+  height: 70px;
+}
+.title {
+  text-align: center;
+}
+.content-left {
+  margin: 20px 0;
+}
+.content-right {
+  margin: 20px 0;
+  color: #ffff;
+}
+.cameraview {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card-list {
+  background-color: #6c757d;
+  border-radius: 10px;
+  padding: 6px;
+  width: 100%;
+  height: fit-content;
+  font-weight: bold;
+}
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body {
+  overflow: hidden;
+}
+.list {
+  padding: 0px 20px;
+  overflow: scroll;
+  height: 300px;
+  overflow-x: hidden;
+  margin-bottom: 10px;
+}
+
+.list::-webkit-scrollbar {
+  width: 2px;
+  background-color: #aaa;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: #28a745;
+}
+
+.card-list .date-time {
+  font-size: 0.8em;
+}
+
+.card-list .imgStudent {
+  border: solid #28a745 2px;
+}
+.card-list .imgStranger {
+  border: solid #d0393e 2px;
+}
+#main {
+  padding: 18px !important;
+  background-color: #343a40 !important;
+}
+.sidebar-wrapper {
+  background-color: #282a2c !important;
+}
+.group-name {
+  font-size: 18px;
+  color: rgb(74, 150, 232);
+  font-weight: bold;
+}
+#iconlogo {
+  color: #08b7cf;
+}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>Quản lý lớp</h1>
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <h3 style="text-align: center;">Cập nhật lớp học</h3>
+                    <div id="messages">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+    </div>
+                    <form action="{% url 'classmanage:updateclass' pk %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_table}}
+                        
+                        <button type="submit" style="margin-top:10px" class="btn btn-primary">Cập nhật</button>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+{% endblock main %} 

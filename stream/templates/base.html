@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hệ thống nhận diện khuôn mặt</title>
+
+  <link rel="stylesheet" href="{% static 'assets/css/main/app.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/main/app-dark.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/main/styles.css' %}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.svg' %}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png' %}" type="image/png" />
+  <link rel="stylesheet" href="{% static 'assets/extensions/choices.js/public/assets/styles/choices.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/extensions/simple-datatables/style.css' %} " />
+  <link rel="stylesheet" href=" {% static 'assets/css/pages/simple-datatables.css' %} " />
+
+  <link rel="stylesheet" href="{% static 'assets/css/shared/iconly.css' %}" />
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <style>
+    html {
+      scroll-behavior: auto;
+      overflow: auto;
+      background-color: #282a2c;
+    }
+
+    body {
+      scroll-behavior: auto;
+      overflow: auto;
+    }
+
+    .errorlist li {
+      color: red;
+    }
+
+    .choices__list {
+      color: white;
+    }
+
+    #iconlogo {
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body class="theme-dark">
+  <script src="{% static 'assets/js/initTheme.js' %}"></script>
+  <div id="app">
+    <div id="sidebar" class="active">
+      <div class="sidebar-wrapper active">
+        <div class="sidebar-header position-relative" style="width: 100%; padding-right: 0px; ">
+          <div class="d-flex justify-content-between align-items-center">
+            <a id="iconlogo" href="/" target="_blank">
+              <div class="logo d-flex">
+                <div><i class="bi bi-person-bounding-box"></i></div>
+                <div class="mt-1 mx-2">
+                  <span>Student Management</span>
+                </div>
+              </div>
+            </a>
+            <div class="sidebar-toggler x">
+              <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <ul class="menu">
+            <li class="sidebar-title">Menu</li>
+            <li class="sidebar-item">
+              <a href="{% url 'recogmanage:home' %}" class="sidebar-link">
+                <i class="bi bi-person-vcard-fill"></i>
+                <span>Quản lí nhận diện</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="{% url 'studentmanage:home' %}" class="sidebar-link">
+                <i class="bi bi-person-lines-fill"></i>
+                <span>Quản lí sinh viên</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="{% url 'classmanage:home' %}" class="sidebar-link">
+                <i class="bi bi-house-door-fill"></i>
+                <span>Quản lí lớp</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="{% url 'facultymanage:home' %}" class="sidebar-link">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+                <span>Quản lí khoa</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              {% comment %} <!-- {% url 'login:logout' %} --> {% endcomment %}
+              <a href="{% url 'login:logout' %}" class="sidebar-link">
+                <i class="bi bi-box-arrow-left"></i>
+                <span>Đăng xuất</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="main">{% block main %} {% endblock main %}</div>
+  </div>
+  {% block contentscript %} {% endblock contentscript %}
+
+  <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+  <script src="{% static 'assets/js/app.js' %}"></script>
+
+  <!-- Need: Apexcharts -->
+  <script src="{% static 'assets/extensions/simple-datatables/umd/simple-datatables.js' %}"></script>
+  <script src=" {% static 'assets/js/pages/simple-datatables.js' %} "></script>
+  <script src="{% static 'assets/extensions/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'assets/js/pages/dashboard.js' %}"></script>
+  <script src="{% static 'assets/extensions/choices.js/public/assets/scripts/choices.js' %}"></script>
+  <script src="{% static 'assets/js/pages/form-element-select.js' %}"></script>
+</body>
+
+</html>

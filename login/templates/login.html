@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Layout - Mazer Admin Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/main/app.css' %} " />
+    <link rel="stylesheet" href=" {% static 'assets/css/main/app-dark.css' %} " />
+    <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.svg' %} " type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png' %} " type="image/png" />
+</head>
+
+<body>
+<div class="container" style="height: 720px;">
+
+    <section id="basic-vertical-layouts" style="padding-top: 2cm;">
+        <div class="row align-items-start">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 col-12">
+               
+                <div class="card">
+                    <div class="card-header">
+                        
+                        <h4 class="card-title text-center">Đăng nhập</h4>
+                        <div id="messages">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-vertical" action="{% url 'login:postlogin' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="first-name-icon">User Name</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" required
+                                                        placeholder="Nhập tài khoản" name="username" id="username" id="first-name-icon" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-person"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Password</label>
+                                                <div class="position-relative">
+                                                    <input type="password"name="password" id="password" class="form-control" placeholder="Nhập Password"
+                                                        id="password-id-icon" required />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-lock"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                         {% comment %} {{form.as_table}} {% endcomment %}
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1 w-100">
+                                                Đăng nhập
+                                            </button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <script src="{% static 'assets/js/bootstrap.js' %} "></script>
+    <script src="{% static 'assets/js/app.js' %} "></script>
+</body>
+
+</html>

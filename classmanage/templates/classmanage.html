@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>Quản lý lớp</h1>
+    <section class="section">
+        <h3 style="text-align: center;">Thêm lớp học</h3>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <div id="messages">
+                        {% for message in messages %}
+    {% if 'success' in message.tags %}
+
+        <div class="alert alert-success">
+            <a class="close" href="#" data-dismiss="alert">×</a>
+                {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
+</div>
+    
+                    <form action="{% url 'classmanage:addclass' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_table}}
+                        
+                        <button type="submit" style="margin-top:10px" class="btn btn-primary">Thêm</button>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <h3 style="text-align: center;padding-top: 10px;">Danh sách lớp học</h3>
+
+        <div class="card">
+            <div id="messages">
+                 {% for message in messages %}
+    {% if 'info' in message.tags %}
+        <div class="alert alert-info">
+            <a class="close" href="#" data-dismiss="alert">×</a>
+                {{ message }}
+
+        </div>
+    {% endif %}
+{% endfor %}
+</div>
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Mã lớp</th>
+                            <th>Khoa</th>
+                            <th>Thời gian tạo</th>
+                            <th>Thời gian cập nhật</th>
+                            <th>Tác vụ</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class in classs %}
+    
+                        <tr>
+                            <td>{{class.id_name}}</td>
+                            <td>{{class.faculty}}</td>
+                            <td>{{class.created_at}}</td>
+                            <td>{{class.updated_at}}</td>
+                            <td>
+                                <a href="{% url 'classmanage:editclass' class.id_name  %}" class="btn btn-outline-info" ><i class="bi bi-pencil-square"></i></a>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#darkk{{class.id_name}}">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                                <div class="modal fade text-left" id="darkk{{class.id_name}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel150" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-dark white">
+                                                <span class="modal-title" id="myModalLabel150">Xóa khuôn mặt nhân
+                                                    diện</span>
+                                                <button type="button" class="close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <i data-feather="x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <color style="color: red">
+                                                    Bạn có đồng ý xóa lớp {{class.id_name}} này không ?
+    
+    
+                                                </color>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light-secondary"
+                                                    data-bs-dismiss="modal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Đóng</span>
+                                                </button>       
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <a href="{% url 'classmanage:deleteclass' class.id_name %}" class="btn btn-dark ml-1">
+                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Đồng ý</span>
+                                                    </a>
+                                                </form>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+    
+    
+                        {% endfor %}
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock main %} 

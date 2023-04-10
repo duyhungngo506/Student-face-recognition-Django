@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Quản lý sinh viên</h1>
+<section class="section mt-4">
+    <h3 style="text-align: center;">Thêm sinh viên</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <div id="messages">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+</div>
+                <form action="{% url 'studentmanage:addstd' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_table}}
+                     <label for="nameimage">Avatar sinh viên: </label>
+                    <input type="file" accept="image/x-png,image/jpeg,image/jpg" onchange="Changeimg(event)" name="file" id="file"
+                        class="form-control" required>
+                         
+                    <img width="100" class="mt-2 ml-2" src="" id="imgg" alt="" ><br>
+                    <script type="text/javascript">
+                        const Changeimg = (e) => {
+                            const img = document.getElementById('imgg');
+                            const file = e.target.files[0];
+                            img.src = URL.createObjectURL(file);
+                        }
+                    </script>
+                    <button type="submit" style="margin-top:10px" class="btn btn-primary">Thêm</button>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <h3 style="text-align: center;padding-top: 10px;">Danh sách sinh viên</h3>
+    <div class="card">
+        <div id="messages">
+             {% for message in messages %}
+    {% if 'info' in message.tags %}
+        <div class="alert alert-info">
+            <a class="close" href="#" data-dismiss="alert">×</a>
+                {{ message }}
+
+        </div>
+    {% endif %}
+{% endfor %}
+</div>
+            
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>Mã SV</th>
+                        <th>Tên SV</th>
+                        <th>Lớp</th>
+                        <th>Khoa</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày sinh</th>
+                        <th>Hình ảnh</th>
+                        <th>Tác vụ</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in liststudent %}
+
+                    <tr>
+                        <td>{{student.id}}</td>
+                        <td>{{student.fullName}}</td>
+                        <td>{{student.classs_id}}</td>
+                        <td>{{student.facultyName}}</td>
+                        <td>{{student.phoneNumber}}</td>
+                        <td>{{student.birthday}}</td>
+                        {% load static %}
+                        <td><img width="50" src="{% static student.id|add:'.jpg' %}"  alt="" ></td>
+                        <td>
+                            <a href="{% url 'studentmanage:editstd' student.id %}" class="btn btn-outline-info" ><i class="bi bi-pencil-square"></i></a>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                data-bs-target="#darkk{{student.id}}">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                            <div class="modal fade text-left" id="darkk{{student.id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel150" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark white">
+                                            <span class="modal-title" id="myModalLabel150">Xóa khuôn mặt nhân
+                                                diện</span>
+                                            <button type="button" class="close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                                <i data-feather="x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <color style="color: red">
+                                                Bạn có đồng ý xóa trường nhận diện {{student.id}} này không ?
+
+
+                                            </color>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-secondary"
+                                                data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Đóng</span>
+                                            </button>       
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <a href="{% url 'studentmanage:deletestd' student.id %}" class="btn btn-dark ml-1">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Đồng ý</span>
+                                                </a>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- <button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+<input type="text" required> -->
+{% endblock main %}
+{% block contentscript %}
+<script>
+    $(function () {
+        $("#id_birthday").datepicker();
+    });
+
+</script>
+
+{% endblock contentscript %}

@@ -1,0 +1,136 @@
+{% extends 'baseperson.html' %}
+{% block main %}
+
+  <header class="mb-3">
+    <a href="#" class="burger-btn d-block d-xl-none">
+      <i class="bi bi-justify fs-3"></i>
+    </a>
+  </header>
+
+
+  <div class="page-content">
+   
+    <section class="row content">
+      <div class="col-md-7 content-left ">
+        <div class="page-heading">
+          <h3 style="text-align: center; color: white;">Hệ thống nhận dạng sinh viên</h3>
+        </div>
+        <img src="{% url 'stream:video_feed' %}" alt="" class="cameraview" />
+      </div>
+      <div class="content-right col-md-5" id="reloadList">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="stdtitle">
+              <h2 class=" mt-2"  style="border-bottom: solid #fff 1px; font-size: 1.8em">
+                Danh sách sinh viên: {{ stdToday|length }}
+              </h2>
+            </div>
+            <div id="studentList" class="list">
+              {% for std in stdToday reversed %}
+              <div class="card-list mt-2 ">
+                <div class="row">
+                  <div class="col-md-3 date-time">
+                    <span class="date align-middle">
+                      {{ std.date }}
+                      <br />
+                      {{ std.time }}
+                    </span>
+                  </div>
+                  <div class="col-md-6 nopadding">
+                    <b class="text-center  " style="
+                          font-size: 1.2em;
+                        ">{{ std.fullName }} </b> <i style="
+                          font-size: 0.8em;
+                        ">({{std.id}})</i>
+                    <br />
+                    <b class=" bg-success" style="
+                          font-size: 0.8em;
+                          border-radius: 4px;
+                          padding: 2px 4px;
+                        ">{{ std.classs_id }}</b>
+                    </br>
+                    <b class=" bg-info" style="
+                          font-size: 0.8em;
+                          border-radius: 4px;
+                          padding: 2px 4px;
+                        ">{{std.address}}</b>
+                  </div>
+                  <div class="col-md-3">
+                    {% load static %}
+                    <img src="{% static std.id|add:'.jpg' %}" alt="" class="avatar imgStudent" />
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="strangertitle">
+              <h2 class="" style="border-bottom: solid #fff 1px; font-size: 1.8em">
+                Danh sách người lạ : <span>{{ strangerToday|length }}</span>
+              </h2>
+            </div>
+            <div id="strangerList" class="list">
+              {% for stranger in strangerToday reversed %}
+              <div class="card-list mt-2">
+                <div class="row">
+                  <div class="col-md-3 date-time">
+                    <span class="date align-middle">
+                      {{stranger.date}}<br>{{stranger.time}}
+
+
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <b class="text-center">Người lạ</b> <br />
+                  </div>
+                  <div class="col-md-3">
+                    {% load static %}
+                    <img src="{% static 'Unknow/'|add:stranger.imgName' %}" alt="" class="avatar imgStranger" />
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  </div>
+
+  
+
+{% endblock main %}
+
+{% block contentscript %}
+<script>
+  $(document).ready(function () {
+    setInterval(function () {
+      $("#studentList").load(" #studentList > *");
+      // $("#stdtitle").load(" #stdtitle > *");
+
+    }, 50);
+  });
+  $(document).ready(function () {
+    setInterval(function () {
+      $("#strangerList").load(" #strangerList > *");
+      // $("#strangertitle").load(" #strangertitle > *");
+    }, 50);
+  });
+  $(document).ready(function () {
+    setInterval(function () {
+      // $("#strangerList").load(" #strangerList > *");
+      $("#strangertitle").load(" #strangertitle > *");
+    }, 50);
+  });
+  $(document).ready(function () {
+    setInterval(function () {
+      // $("#strangerList").load(" #strangerList > *");
+      $("#stdtitle").load(" #stdtitle > *");
+    }, 50);
+  });
+</script>
+{% endblock contentscript %}

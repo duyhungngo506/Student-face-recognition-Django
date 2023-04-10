@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<h1>Quản lý sinh viên</h1>
+<section class="section  mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <h3 style="text-align: center;">Cập nhật sinh viên</h3>
+                <div id="messages">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                <form action="{% url 'studentmanage:updatestd' pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_table}}
+                    <label for="nameimage">Avatar sinh viên: </label>
+                    <input type="file" accept="image/x-png,image/jpeg,image/jpg" onchange="Changeimg(event)" name="file" id="file"
+                        class="form-control" >
+                        {% load static %}   
+                    <img width="100" src="{% static pk|add:'.jpg' %}" id="imgg" alt="" ><br>
+                    <script type="text/javascript">
+                        const Changeimg = (e) => {
+                            const img = document.getElementById('imgg');
+                            const file = e.target.files[0];
+                            img.src = URL.createObjectURL(file);
+                        }
+                    </script>
+                    <button type="submit" style="margin-top:10px" class="btn btn-primary">Cập nhật</button>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock main %}
+{% block contentscript %}
+<script>
+    $(function () {
+        $("#id_birthday").datepicker();
+    });
+
+</script>
+
+{% endblock contentscript %}

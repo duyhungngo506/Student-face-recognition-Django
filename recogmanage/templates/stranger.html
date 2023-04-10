@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Quản lý nhận diện</h1>
+<section class="section mt-4">
+  <div class="table_header d-flex justify-content-sm-center mb-2 ">
+    <h3 class="mt-2" >
+    <a style="color: #ffff; opacity: .5;" href="{% url 'recogmanage:home' %}" >
+      Danh sách nhận diện sinh viên
+    </a>
+   </h3>
+   <h3 class="mt-2 mx-4">|</h3>
+
+   <h3 style="text-align: center;padding-top: 10px;"><i class="bi bi-person-fill-exclamation"></i>&nbsp; Danh sách nhận diện người lạ</h3>
+
+   </div>
+  <div class="card" id="recogmanage">
+ 
+    <div id="messages">
+      {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ message }}
+              </div>
+          {% endfor %}
+      {% endif %}
+    <div class="btn-delete_all d-flex justify-content-end">
+      <button type="button" class="btn btn-outline-danger w-10 mt-4 mr-4" data-bs-toggle="modal" data-bs-target="#dark">
+        <i class="bi bi-trash-fill"></i> &nbsp; Xóa tất cả
+      </button>
+      <div class="modal fade text-left" id="dark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel150"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-dark white">
+                    <span class="modal-title" id="myModalLabel150">Xóa khuôn mặt nhân diện</span>
+                    
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                      <i data-feather="x"></i>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  <color style="color: red"> 
+                    Bạn có đồng ý xóa tất cả người lạ không?
+                  
+                  
+                  </color>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                      <i class="bx bx-x d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Đóng</span>
+                    </button>
+                    <form action="" method="post">
+                   
+                      <a href="{% url 'recogmanage:deleteaddstranger' %}" class="btn btn-dark ml-1">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Đồng ý</span>
+                      </a>
+                    </form> 
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+    
+    <div class="card-body">
+                {% if messagedelete %}
+                    
+                    <div class="alert alert-primary" role="alert">
+                        {{messagedelete}}
+                    </div>
+                   
+                {% endif %}
+      <table class="table table-striped" id="table1">
+        <thead>
+          <tr>
+            <th>Mã số</th>
+            <th>Thời gian vào</th>
+            <th>Hình ảnh</th>
+            <th>Tác vụ</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for stranger in strangers reversed%}
+
+          <tr>
+            <td>{{stranger.id}}</td>
+            <td> <span class="badge bg-primary">{{stranger.time}}-{{stranger.date}}</span></td>
+            {% load static %}
+            <td><img width="50" src="{% static 'Unknow/'|add:stranger.imgName' %}"  alt="" ></td>
+         
+          
+            <td>
+              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#dark{{stranger.id}}">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+
+            </td>
+            <div class="modal fade text-left" id="dark{{stranger.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel150"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-dark white">
+                    <span class="modal-title" id="myModalLabel150">Xóa khuôn mặt nhân diện</span>
+                    
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                      <i data-feather="x"></i>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  <color style="color: red"> 
+                    Bạn có đồng ý xóa trường nhận diện người lạ:  {{stranger.id}} này không ?
+                  
+                  
+                  </color>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                      <i class="bx bx-x d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Đóng</span>
+                    </button>
+                    <form action="{% url 'recogmanage:deleterstranger' stranger.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-dark ml-1">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Đồng ý</span>
+                      </button>
+                    </form> 
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock main %}
+
+{% block contentscript %}
+
+
+{% endblock contentscript %}
